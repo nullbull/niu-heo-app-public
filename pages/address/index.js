@@ -19,7 +19,7 @@ export default Page({
       user: user
     });
     let user_id = user.data.id;
-    console.log(user.data.uid);
+    console.log(user.data.id);
     this.getAddress(user_id);
   },
   getAddress(user_id) {

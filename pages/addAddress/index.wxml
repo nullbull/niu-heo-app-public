@@ -1,7 +1,7 @@
 <view class="container">
     <view class="input-wrap">
-        <wxc-input type="text" title="联系人" placeholder="名字" bindinput="watchConsignee" value="{{consignee}}" _pid="{{_pid}}"></wxc-input>
-        <wxc-input type="number" title="联系电话" placeholder="请输入手机号" bindinput="watchTel" value="{{tel}}" _pid="{{_pid}}"></wxc-input>
+        <wxc-input type="text" title="联系人" placeholder="名字" bindinput="watchConsignee" value="{{leaveName}}" _pid="{{_pid}}"></wxc-input>
+        <wxc-input type="number" title="联系电话" placeholder="请输入手机号" bindinput="watchTel" value="{{leavePhone}}" _pid="{{_pid}}"></wxc-input>
         <view id="list-select">
             <view id="list-title">学校</view>
             <view id="list-desc">
@@ -15,7 +15,7 @@
             <wxc-icon size="30" type="arrow-right" color="#c2c2c2" id="arrow" _pid="{{_pid}}"></wxc-icon>
         </view>
         <view class="hr"></view>
-        <wxc-input type="text" title="详细地址" mode="none" placeholder="如清风苑406" bindinput="watchAddress" value="{{address}}" _pid="{{_pid}}"></wxc-input>
+        <wxc-input type="text" title="详细地址" mode="none" placeholder="如清风苑406" bindinput="watchAddress" value="{{locationName}}" _pid="{{_pid}}"></wxc-input>
     </view>
 </view>
 <view class="button-wrap">

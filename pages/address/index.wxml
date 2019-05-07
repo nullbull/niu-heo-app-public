@@ -3,16 +3,16 @@
         <view wx:if="{{item.id!=0}}">
             <view class="content">
                 <view>
-                    <text>{{item.consignee}}，{{item.tel}}</text>
+                    <text>姓名：{{item.leaveName}}，手机号：{{item.leavePhone}}</text>
                 </view>
-                <text>{{item.schoolName}} {{item.address}}</text>
+                <text>宿舍：{{item.locationName}} {{item.address}}</text>
             </view>
             <view class="bottom">
                 <view class="left">
-                    <view wx:if="{{item.is_default==1}}">
+                    <view wx:if="{{item.status==1}}">
                         <image src="../../common/assets/tab/ic_ok.png"></image>已设为默认
                     </view>
-                    <view wx:if="{{item.is_default==0}}" catchtap="setDefaultAddress" id="{{item.id}}" data-idx="{{idx}}">
+                    <view wx:if="{{item.status==2}}" catchtap="setDefaultAddress" id="{{item.id}}" data-idx="{{idx}}">
                         <image src="../../common/assets/tab/check.png"></image>设为默认
                     </view>
                 </view>

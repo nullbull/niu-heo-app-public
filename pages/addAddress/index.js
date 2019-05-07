@@ -42,9 +42,9 @@ export default Page({
       let address = addressList[idx];
       let address_id = this.data.addressId;
       this.setData({
-        consignee: address.consignee,
-        tel: address.tel,
-        address: address.address,
+        leaveName: address.leaveName,
+        leavePhone: address.leavePhone,
+        locationName: address.locationName,
         addressId: address.id
       });
     }
