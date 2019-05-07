@@ -1,24 +1,46 @@
 var api = require('../../api.js');
 export default Page({
   data: {
-    school: { value: 0, title: '请选择学校' },
+    school: {
+      value: 0,
+      title: '请选择学校'
+    },
     address: '',
     consignee: '',
     tel: '',
-    addressId: ''
-
+    addressId: '',
+    // 选择区域  start
+    area: {
+      value: 0,
+      title: '请选择区域'
+    },
+    multiArray: [
+      ['A区', 'B区', 'C区', '教学区'],
+      ['A1', 'A2', 'A3', 'A4', 'A5']
+    ],
+    objectMultiArray: [
+      ['A1', 'A2', 'A3'],
+      ['B1', 'B2', 'B3'],
+      ['C1', 'C2', 'C3'],
+      ['J1', 'J2', 'J3']
+    ],
+    selectedArea: {
+      title: ''
+    },
+    multiIndex: [0, 0]
+    // 选择区域  end
   },
-  watchConsignee: function (event) {
+  watchConsignee: function(event) {
     this.setData({
       consignee: event.detail.value
     });
   },
-  watchTel: function (event) {
+  watchTel: function(event) {
     this.setData({
       tel: event.detail.value
     });
   },
-  watchAddress: function (event) {
+  watchAddress: function(event) {
     this.setData({
       address: event.detail.value
     });
@@ -37,23 +59,23 @@ export default Page({
     }
     if (option.id != 'no') {
       //console.log(option);
-      let idx = option.id;
-      let addressList = wx.getStorageSync('addressList');
-      let address = addressList[idx];
-      let address_id = this.data.addressId;
-      this.setData({
-        leaveName: address.leaveName,
-        leavePhone: address.leavePhone,
-        locationName: address.locationName,
-        addressId: address.id
-      });
+      // let idx = option.id;
+      // let addressList = wx.getStorageSync('addressList');
+      // let address = addressList[idx];
+      // let address_id = this.data.addressId;
+      // this.setData({
+      //   leaveName: address.leaveName,
+      //   leavePhone: address.leavePhone,
+      //   locationName: address.locationName,
+      //   addressId: address.id
+      // });
     }
   },
   noSchool() {
     let school = wx.getStorageSync('schoolList');
     console.log('school list' + school.length);
   },
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', this.data.startSites[e.detail.value]);
     // console.log(e);
     this.setData({
@@ -104,7 +126,7 @@ export default Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res.data)
         if (res.data == 'ok') {
           wx.navigateBack({
@@ -120,7 +142,7 @@ export default Page({
           });
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         wx.showToast({
           title: '未知错误',
           duration: 1000,
@@ -129,5 +151,28 @@ export default Page({
         });
       }
     });
+  },
+  // 区域改变事件
+  bindMultiPickerChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    this.setData({
+      selectedArea: {
+        title: this.data.objectMultiArray[e.detail.value[0]][e.detail.value[1]]
+      }
+    })
+  },
+  bindMultiPickerColumnChange(e) {
+    var temp = [];
+    temp[0] = this.data.multiArray[0];
+    temp[1] = this.data.objectMultiArray[e.detail.value];
+    // console.log(temp);
+    this.setData({
+      multiArray: temp
+    })
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    // 知道修改的列以后，就可以通过修改multiIndex中对应元素的值，然后再修改multiArray
   }
 });

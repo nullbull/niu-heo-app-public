@@ -13,18 +13,15 @@ export default App({
     hasLogin: false,
     userInfo: ""
   },
-  onLaunch: function () {
+  onLaunch: function() {
     var that = this;
     let shoolList = wx.getStorageSync("schoolList");
     if (!shoolList.length) {
-      wx.request({
-        url: api.other.selectAllSchool,
-        method: "POST",
-        success: function (res) {
-          console.log(res.data);
-          wx.setStorageSync("schoolList", res.data);
-        }
-      });
+      var list = [{
+        value: '1',
+        title: '山东科技大学'
+      }];
+      wx.setStorageSync("schoolList", list);
     }
     this.setDate();
   },
