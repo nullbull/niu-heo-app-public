@@ -8,7 +8,7 @@ var api = {
     getUserInfo: _api_root + "user/getUserInfo", //查询与用户所有信息
     getMoblie: _api_root + "user/getMoblie",
     saveMoblie: _api_root + "user/saveMoblie",
-    getTicket: _api_root + "user/getTicket",
+    getTicket: _api_root + "ticket/getTicket",
     getMyAddresses: _api_root + "address/getByUser",
     setDefaultAddress: _api_root + "user/setDefaultAddress",
     delAddress: _api_root + "user/delAddress",
