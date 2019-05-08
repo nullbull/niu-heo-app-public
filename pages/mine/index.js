@@ -83,32 +83,44 @@ export default Page({
     },
     isDriver1() {
         var that = this;
-        wx.request({
-            url: api.user.isDriver,
-            data: {
-                '__code__': {
-                    readme: ''
-                },
-
-                user_id: this.data.user.data.uid
-            },
-            method: 'POST',
-            success: function (res) {
-                if (res.data !== 'wait' && res.data !== 'no' && res.data !== 'dont') {
-                    that.setData({
+        let user = wx.getStorageSync('user');
+        if(user.type==2) {
+          wx.request({
+              url: api.user.isDriver + "/" + user.id,
+              method: 'GET',
+              success: function (res) {
+                let driver = res.data;
+                if(driver.status==2) {
+                      that.setData({
                         isDriver: true,
                         driver: res.data
                     });
-                    wx.setStorageSync('isDriver', true);
-                    wx.setStorageSync('driver', res.data);
-                } else {
-                    that.setData({
-                        isDriver: false
-                    });
-                    wx.setStorageSync('isDriver', false);
+                      wx.setStorageSync('isDriver', true);
+                      wx.setStorageSync('driver', res.data);
+                  } else {
+                      that.setData({
+                          isDriver: false
+                      });
+                      wx.setStorageSync('isDriver', false);
+                  }
                 }
-            }
-        });
+                  // if (res.data !== 'wait' && res.data !== 'no' && res.data !== 'dont') {
+                  //     that.setData({
+                  //         isDriver: true,
+                  //         driver: res.data
+                  //     });
+                  //     wx.setStorageSync('isDriver', true);
+                  //     wx.setStorageSync('driver', res.data);
+                  // } else {
+                  //     that.setData({
+                  //         isDriver: false
+                  //     });
+                  //     wx.setStorageSync('isDriver', false);
+                  // }
+              
+          });
+        }
+
     },
     //跳转到相应的子页面
     navToDetail(e) {
@@ -231,21 +243,21 @@ export default Page({
                         success: function (ret) {
                             console.log(ret);
                             if (ret.statusCode === 200) {
-                                wx.setStorageSync('user', ret.data);
+                                wx.setStorageSync('user', ret.data.data);
                                 wx.setStorageSync('userInfo', myInfo);
                                 wx.setStorageSync('isLogin', true);
                                 wx.setStorageSync('isDriver', false);
                                 that.setData({
                                     isLogin: true,
                                     userInfo: myInfo,
-                                    user: ret.data
+                                    user: ret.data.data
                                 });
                                 that.isDriver1();
                                 that.showToast1();
                             }
                         },
                         fail: function () {
-                            console.log('login fali');
+                            console.log('login fail');
                             wx.showToast({
                                 title: '服务器异常,请稍后登录',
                                 icon: 'none',

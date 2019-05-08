@@ -122,10 +122,12 @@ export default Page({
         });
     },
     countTime(start_time, end_time) {
-        let hour1 = parseInt(start_time.substr(0, 2));
-        let hour2 = parseInt(end_time.substr(0, 2));
-        let minute1 = parseInt(start_time.substr(3, 2));
-        let minute2 = parseInt(end_time.substr(3, 2));
+        console.log(start_time);
+        let hour1 = parseInt(start_time.substr(11, 2));
+        let hour2 = parseInt(end_time.substr(11, 2));
+        let minute1 = parseInt(start_time.substr(14, 2));
+        let minute2 = parseInt(end_time.substr(14, 2));
+        console.log(hour1,  hour2, minute1, minute2)
         let hour = hour2 - hour1;
         if (minute2 > minute1) {
             var minute = minute2 - minute1;
@@ -390,6 +392,7 @@ export default Page({
                 }
             });
         } else {
+          console.log(e.currentTarget.dataset);
             let index = e.currentTarget.dataset.index;
             let type = e.currentTarget.dataset.type;
             let price = e.currentTarget.dataset.price;

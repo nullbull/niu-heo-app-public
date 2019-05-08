@@ -18,10 +18,12 @@ export default Page({
         driver_line: '北门--清风专线',
         end_site: '',
         site_id: '',
-        school_id: '',
+        school_id: 1,
         schoolList: '',
         currentSchool: '',
-        driver_id: ''
+        driver_id: "",
+        driverName: "",
+        companyName:""
     },
     isInteger(obj) {
         return obj % 1 === 0;
@@ -57,6 +59,7 @@ export default Page({
             return false;
         }
         var that = this;
+        console.log(this.data.beginAt),
         wx.request({
             url: api.bus.newBus,
             method: 'POST',
@@ -65,19 +68,19 @@ export default Page({
                     readme: ''
                 },
 
-                driver_id: this.data.driver_id,
-                school_id: this.data.school_id,
+                driverId: this.data.driver_id,
+              driverNickname: this.data.driverName,
                 driver_line: this.data.driver_line,
-                site_id: this.data.site_id,
-                end_site: this.data.end_site,
-                small_price: this.data.small_price,
-                small_count: this.data.small_count,
-                normall_price: this.data.normall_price,
-                normall_count: this.data.normall_count,
-                big_price: this.data.big_price,
-                big_count: this.data.big_count,
-                start_time: this.data.start_time,
-                end_time: this.data.end_time
+                companyId: this.data.site_id,
+                destinationName: this.data.end_site,
+                smallPrice: this.data.small_price,
+                smallCount: this.data.small_count,
+                normalPrice: this.data.normall_price,
+                normalCount: this.data.normall_count,
+                largePrice: this.data.big_price,
+                largeCount: this.data.big_count,
+                beginTime: this.data.start_time,
+                endTime: this.data.end_time
             },
             success: function (res) {
                 console.log(res.data);
@@ -150,11 +153,16 @@ export default Page({
         });
 
         let driver = wx.getStorageSync('driver');
+        console.log(driver);
         if (driver) {
             this.setData({
-                driver_id: driver[0].id
+                driver_id: driver.userId,
+                driverName: driver.realname
             });
         }
+      console.log(this.data.driver_id);
+      console.log(this.data.driverName);
+
         let startSites = wx.getStorageSync('startSites');
         if (startSites.length) {
             this.setData({
@@ -219,7 +227,8 @@ export default Page({
         console.log('picker发送选择改变，携带值为', this.data.startSites[e.detail.value].value);
         this.setData({
             index1: e.detail.value,
-            site_id: this.data.startSites[e.detail.value].value
+            site_id: this.data.startSites[e.detail.value].value,
+            companyName: this.data.startSites[e.detail.value].title
         });
     },
     bindEndTimeChange: function (e) {

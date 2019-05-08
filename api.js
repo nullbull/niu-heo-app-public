@@ -15,7 +15,7 @@ var api = {
     editAddress: _api_root + "user/editAddress",
     saveAddress: _api_root + "address/saveAddress",
     getMyCoupons: _api_root + "user/getMyCoupons",
-    isDriver: _api_root + "user/isDriver",
+    isDriver: _api_root + "driver/get",
     ifSiJi: _api_root + "user/ifSiJi",
     uploadCardImg: _api_root + "user/uploadCardImg"
   },
@@ -25,7 +25,7 @@ var api = {
     passengerDetail: _api_root + "driver/passengerDetail"
   },
   bus: {
-    newBus: _api_root + "bus/newBus",
+    newBus: _api_root + "boat/add",
     searchBus: _api_root + "boat/query",
     searchBus1: _api_root + "bus/searchBus1",
     searchBus2: _api_root + "bus/searchBus2",

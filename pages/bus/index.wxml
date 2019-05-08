@@ -49,16 +49,16 @@
             <wxc-flex class="bottom myflex1" wx:if="{{!item.bottomShow}}" _pid="{{_pid}}">
                 <view class="ticket_status">
                     <text class="status">车票状态:</text>
-                    <wxc-label type-color="{{item.small_count-item.small_already_person>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
-                        <text wx:if="{{item.small_count-item.samll_already_person>0}}">小件:有票</text>
+                    <wxc-label type-color="{{item.smallCount>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
+                        <text wx:if="{{item.smallCount>0}}">小件:有票</text>
                         <text wx:else="">小件:无票</text>
                     </wxc-label>
-                    <wxc-label type-color="{{item.normall_count-item.normall_already_person>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
-                        <text wx:if="{{item.normall_count-item.normall_already_person>0}}">中件:有票</text>
+                    <wxc-label type-color="{{item.normalCount>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
+                        <text wx:if="{{item.normalCount>0}}">中件:有票</text>
                         <text wx:else="">中件:无票</text>
                     </wxc-label>
-                    <wxc-label type-color="{{item.big_count-item.big_already_person>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
-                        <text wx:if="{{item.big_count-item.big_already_person>0}}">大件:有票</text>
+                    <wxc-label type-color="{{item.largeCount>0?'#53bc64':'#ed3f14'}}" class="mylabel" _pid="{{_pid}}">
+                        <text wx:if="{{item.largeCount>0}}">大件:有票</text>
                         <text wx:else="">大件:无票</text>
                     </wxc-label>
                 </view>
@@ -68,13 +68,13 @@
                     小件
                 </view>
                 <view class="item1">
-                    <wxc-price class="myprice1" value="{{item.small_price}}" _pid="{{_pid}}"></wxc-price>
+                    <wxc-price class="myprice1" value="{{item.smallPrice}}" _pid="{{_pid}}"></wxc-price>
                 </view>
                 <view class="item1">
-                    {{item.small_count-item.small_already_person}}张
+                    {{item.smallCount}}张
                 </view>
                 <view class="item1">
-                    <text class="buy-button" catchtap="toBuy" data-type="1" data-index="{{index}}" data-price="{{item.small_price}}" wx:if="{{item.small_count-item.small_already_person>0}}">购票</text>
+                    <text class="buy-button" catchtap="toBuy" data-type="1" data-index="{{index}}" data-price="{{item.smallPrice}}" wx:if="{{item.smallCount>0}}">购票</text>
                     <text class="buy-button1" wx:else="" catchtap="noTicket">已完</text>
                 </view>
             </wxc-flex>
@@ -83,13 +83,13 @@
                     中件
                 </view>
                 <view class="item1">
-                    <wxc-price class="myprice1" value="{{item.small_price}}" _pid="{{_pid}}"></wxc-price>
+                    <wxc-price class="myprice1" value="{{item.normalPrice}}" _pid="{{_pid}}"></wxc-price>
                 </view>
                 <view class="item1">
-                    {{item.normall_count-item.normall_already_person}}张
+                    {{item.normalCount}}张
                 </view>
                 <view class="item1">
-                    <text class="buy-button" catchtap="toBuy" data-type="2" data-index="{{index}}" data-price="{{item.normall_price}}" wx:if="{{item.normall_count - item.normall_already_person>0}}">购票</text>
+                    <text class="buy-button" catchtap="toBuy" data-type="2" data-index="{{index}}" data-price="{{item.normalPrice}}" wx:if="{{item.normalCount>0}}">购票</text>
                     <text class="buy-button1" wx:else="" catchtap="noTicket">已完</text>
                 </view>
             </wxc-flex>
@@ -98,13 +98,13 @@
                     大件
                 </view>
                 <view class="item1">
-                    <wxc-price class="myprice1" value="{{item.big_price}}" _pid="{{_pid}}"></wxc-price>
+                    <wxc-price class="myprice1" value="{{item.largePrice}}" _pid="{{_pid}}"></wxc-price>
                 </view>
                 <view class="item1">
-                    {{item.big_count - item.big_already_person}}张
+                    {{item.largeCount}}张
                 </view>
                 <view class="item1">
-                    <text class="buy-button" catchtap="toBuy" data-price="{{item.big_price}}" data-type="3" data-index="{{index}}" wx:if="{{item.big_count - item.big_already_person>0}}">购票</text>
+                    <text class="buy-button" catchtap="toBuy" data-price="{{item.largePrice}}" data-type="3" data-index="{{index}}" wx:if="{{item.largeCount>0}}">购票</text>
                     <text class="buy-button1" wx:else="" catchtap="noTicket">已完</text>
                 </view>
             </wxc-flex>

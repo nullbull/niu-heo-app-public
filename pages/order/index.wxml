@@ -43,9 +43,9 @@
                 * 收获地址
             </view>
             <view class="item main">
-                <picker bindchange="bindPickerChange" range-key="address" value="index" range="{{addressList}}">
+                <picker bindchange="bindPickerChange" range-key="leaveName" value="index" range="{{addressList}}">
                     <view class="picker">
-                        <text class="text22" wx:if="{{addressList[index].address}}">{{addressList[index].address}}</text>
+                        <text class="text22" wx:if="{{addressList[index].leaveName}}">{{addressList[index].leaveName}}</text>
                         <text class="notice-text" wx:else="">请点击选择地址</text>
                     </view>
                 </picker>
@@ -84,8 +84,8 @@
         </wxc-flex>
     </view>
 </view>
-<wxc-popup class="J_Popup" animation-mode="bottom" align="bottom" _pid="{{_pid}}">
+<!-- <wxc-popup class="J_Popup" animation-mode="bottom" align="bottom" _pid="{{_pid}}">
     <view class="popup__content">
         <wxc-select items="{{addressList}}" color="#28a745" checked="1" bind:change="onChange" _pid="{{_pid}}"></wxc-select>
     </view>
-</wxc-popup>
+</wxc-popup> -->
