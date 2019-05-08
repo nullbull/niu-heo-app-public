@@ -17,6 +17,7 @@ export default Page({
         activeMenu: 1,
         startSites: '',
         timeIndex: 0,
+        companyId : "",
         timeInternal: [{
             index: 0,
             time: '08:00-12:00'
@@ -50,10 +51,11 @@ export default Page({
     },
     onLoad: function (option) {
         var that = this;
-        //console.log(option)
+        console.log(option)
         this.setData({
             start_site: option.start,
-            end_site: option.end
+            end_site: option.end,
+            companyId: option.companyId
         });
         let isLogin = wx.getStorageSync('isLogin');
         this.setData({
@@ -72,7 +74,7 @@ export default Page({
             startSites: startSites
         });
         wx.request({
-            url: api.bus.searchBus1,
+            url: api.bus.searchBus,
             method: 'POST',
             data: {
                 '__code__': {
@@ -82,16 +84,17 @@ export default Page({
                 start_site: this.data.start_site,
                 end_site: this.data.end_site,
                 school_id: this.data.currentSchool.value,
-                limit: this.data.limit
+                limit: this.data.limit,
+                companyId : this.data.companyId
             },
             success: function (res) {
-                //console.log(res.data)
+                console.log(res.data)
                 if (res.data.length > 0) {
                     let bus = res.data;
                     for (let i = 0; i < bus.length; i++) {
-                        bus[i].start_time = bus[i].start_time.substr(11, 5);
-                        bus[i].end_time = bus[i].end_time.substr(11, 5);
-                        bus[i].count_time = that.countTime(bus[i].start_time, bus[i].end_time);
+                        bus[i].start_time = bus[i].beginAt.substr(11, 5);
+                        bus[i].end_time = bus[i].endAt.substr(11, 5);
+                      bus[i].count_time = that.countTime(bus[i].beginAt, bus[i].endAt);
                     }
                     console.log(bus);
                     that.setData({

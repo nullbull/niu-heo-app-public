@@ -43,7 +43,7 @@
                     </view>
                 </view>
                 <view class="item1 price-container">
-                    <wxc-price class="myprice" value="{{item.small_price}}" _pid="{{_pid}}"></wxc-price>
+                    <wxc-price class="myprice" value="{{item.smallPrice}}" _pid="{{_pid}}"></wxc-price>
                 </view>
             </wxc-flex>
             <wxc-flex class="bottom myflex1" wx:if="{{!item.bottomShow}}" _pid="{{_pid}}">

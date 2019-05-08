@@ -9,6 +9,7 @@ export default Page({
     consignee: '',
     tel: '',
     addressId: '',
+    locationId: '',
     // 选择区域  start
     area: {
       value: 0,
@@ -23,6 +24,12 @@ export default Page({
       ['B1', 'B2', 'B3'],
       ['C1', 'C2', 'C3'],
       ['J1', 'J2', 'J3']
+    ],
+    valueMultiArray: [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10, 11, 12]
     ],
     selectedArea: {
       title: ''
@@ -90,6 +97,7 @@ export default Page({
     let school = this.data.school;
     let address = this.data.address;
     let address_id = this.data.addressId;
+    let locationId = this.data.locationId;
     let user = wx.getStorageSync('user');
     console.log(user);
 
@@ -118,9 +126,9 @@ export default Page({
       data: {
         leavePhone: tel,
         leaveName: address,
-        locationId: 18,
+        locationId: locationId,
         userId: user_id,
-        status: 1
+        status: 2
       },
       method: 'POST',
       header: {
@@ -163,15 +171,21 @@ export default Page({
         title: this.data.objectMultiArray[e.detail.value[0]][e.detail.value[1]]
       }
     })
+    this.setData({
+      locationId: this.data.valueMultiArray[e.detail.value[0]][e.detail.value[1]],
+    })
+    console.log(this.data.locationId)
   },
   bindMultiPickerColumnChange(e) {
-    var temp = [];
-    temp[0] = this.data.multiArray[0];
-    temp[1] = this.data.objectMultiArray[e.detail.value];
-    // console.log(temp);
-    this.setData({
-      multiArray: temp
-    })
+    if (e.detail.column == 0) {
+      var temp = [];
+      temp[0] = this.data.multiArray[0];
+      temp[1] = this.data.objectMultiArray[e.detail.value];
+      // console.log(temp);
+      this.setData({
+        multiArray: temp
+      })
+    }
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     // 知道修改的列以后，就可以通过修改multiIndex中对应元素的值，然后再修改multiArray
   }

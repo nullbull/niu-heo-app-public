@@ -15,15 +15,8 @@ export default Page({
             user: user
         });
         wx.request({
-            url: api.user.getTicket,
-            method: 'POST',
-            data: {
-                '__code__': {
-                    readme: ''
-                },
-
-                user_id: that.data.user.data.uid
-            },
+            url: api.user.getTicket + "/" + user.data.id,
+            method: 'GET',
             success: function (res) {
                 console.log(res.data);
                 if (res.data.length) {

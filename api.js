@@ -26,6 +26,7 @@ var api = {
   },
   bus: {
     newBus: _api_root + "bus/newBus",
+    searchBus: _api_root + "boat/query",
     searchBus1: _api_root + "bus/searchBus1",
     searchBus2: _api_root + "bus/searchBus2",
     searchBus3: _api_root + "bus/searchBus3",

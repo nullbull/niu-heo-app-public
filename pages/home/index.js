@@ -5,7 +5,7 @@ export default Page({
         '__code__': {
             readme: ''
         },
-
+        companyId : "",
         start_site: '',
         end_site: '',
         inputValue: '',
@@ -41,7 +41,7 @@ export default Page({
         console.log(this.shcool_id);
         wx.request({
             url: api.other.getSite,
-            method: 'POST',
+            method: 'GET',
             data: {
                 '__code__': {
                     readme: ''
@@ -51,18 +51,12 @@ export default Page({
             },
             success: function (res) {
                 console.log(res.data);
-                if (res.data.length) {
+                console.log(res.data.length);
                     that.setData({
                         startSites: res.data
                     });
-                    wx.setStorageSync('startSites', that.data.startSites);
-                } else if (res.data) {
-                    wx.showToast({
-                        title: '该学校暂时没有开通站点',
-                        icon: 'none',
-                        duration: 2000
-                    });
-                }
+              wx.setStorageSync('startSites', that.data.startSites);
+
             },
             fail: function () {
                 wx.showToast({
@@ -75,7 +69,7 @@ export default Page({
     },
     noSchool() {
         let school = wx.getStorageSync('startSites');
-        //console.log('school list'+school.length)
+        console.log('school list'+school.length)
         if (!school.length) {
             wx.showToast({
                 title: '请先选择学校',
@@ -86,11 +80,19 @@ export default Page({
         }
     },
     bindPickerChange: function (e) {
-        //console.log('picker发送选择改变，携带值为', this.data.startSites[e.detail.value].title)
-        this.setData({
-            index: e.detail.value,
+
+        console.log('picker发送选择改变，携带值为', e.detail.value + "---" ,this.data.startSites[e.detail.value].title);
+      
+          this.setData({
+            index : e.detail.value,
+            companyId: this.data.startSites[e.detail.value].value,
             start_site: this.data.startSites[e.detail.value].title
-        });
+          });
+        
+    
+        console.log(this.data.start_site);
+      wx.setStorageSync("companyId", this.data.startSites[e.detail.value].value);
+      console.log(wx.getStorageSync("companyId"));
     },
     saveEndSite(e) {
         console.log(e.detail.value);
@@ -164,7 +166,8 @@ export default Page({
                 duration: 2000
             });
         } else {
-            let busUrl = '/pages/bus/index?start=' + this.data.start_site + '&end=' + this.data.end_site;
+            let busUrl = '/pages/bus/index?start=' + this.data.start_site + '&end=' + this.data.end_site + "&companyId=" + this.data.index;
+            console.log(busUrl);
 
             //保存FormId
 

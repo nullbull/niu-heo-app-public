@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/addAddress/index",
     "pages/home/index",
-    
+    "pages/addAddress/index",
     "pages/address/index",
     "pages/bus/index",
     "pages/busDetail/index",
