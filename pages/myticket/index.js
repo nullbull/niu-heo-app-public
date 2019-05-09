@@ -15,16 +15,16 @@ export default Page({
             user: user
         });
         wx.request({
-            url: api.user.getTicket + "/" + user.data.id,
+            url: api.user.getTicket + "/" + user.id,
             method: 'GET',
             success: function (res) {
                 console.log(res.data);
                 if (res.data.length) {
                     let bus = res.data;
                     for (let i = 0; i < bus.length; i++) {
-                        bus[i].start_time = bus[i].start_time.substr(11, 5);
-                        bus[i].end_time = bus[i].end_time.substr(11, 5);
-                        bus[i].count_time = that.countTime(bus[i].start_time, bus[i].end_time);
+                        bus[i].start_time = bus[i].beginAt.substr(11, 5);
+                        bus[i].end_time = bus[i].endAt.substr(11, 5);
+                      bus[i].count_time = that.countTime(bus[i].beginAt, bus[i].endAt);
                         if (bus[i].status == 0) {
                             bus[i].statusText = '未发车';
                         } else if (bus[i].status == 1) {
@@ -60,23 +60,25 @@ export default Page({
             phoneNumber: '15723695007'
         });
     },
-    countTime(start_time, end_time) {
-        let hour1 = parseInt(start_time.substr(0, 2));
-        let hour2 = parseInt(end_time.substr(0, 2));
-        let minute1 = parseInt(start_time.substr(3, 2));
-        let minute2 = parseInt(end_time.substr(3, 2));
-        let hour = hour2 - hour1;
-        if (minute2 > minute1) {
-            var minute = minute2 - minute1;
-        } else {
-            hour -= 1;
-            var minute = minute2 + 60 - minute1;
-            if (minute == 60) {
-                minute = 0, hour += 1;
-            }
-        }
-        return hour + '时' + minute + '分';
-    },
+  countTime(start_time, end_time) {
+    console.log(start_time);
+    let hour1 = parseInt(start_time.substr(11, 2));
+    let hour2 = parseInt(end_time.substr(11, 2));
+    let minute1 = parseInt(start_time.substr(14, 2));
+    let minute2 = parseInt(end_time.substr(14, 2));
+    console.log(hour1, hour2, minute1, minute2)
+    let hour = hour2 - hour1;
+    if (minute2 > minute1) {
+      var minute = minute2 - minute1;
+    } else {
+      hour -= 1;
+      var minute = minute2 + 60 - minute1;
+      if (minute == 60) {
+        minute = 0, hour += 1;
+      }
+    }
+    return hour + '时' + minute + '分';
+  },
     confirmReceived(e) {
         let index = e.currentTarget.dataset.index;
         var received = 'ticketList[' + index + '].received';

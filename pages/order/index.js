@@ -25,6 +25,7 @@ export default Page({
     let type = option.type;
     let price = option.price;
     let ticketInfo = wx.getStorageSync('ticketInfo');
+    console.log(ticketInfo);
     this.setData({
       ticketInfo: ticketInfo
     });
@@ -80,7 +81,7 @@ export default Page({
             readme: ''
           },
 
-          user_id: this.data.user.data.uid
+          user_id: this.data.user.id
         },
         success: function (res) {
           console.log(res.data);
@@ -163,21 +164,26 @@ export default Page({
             readme: ''
           },
 
-          bus_id: this.data.ticketInfo.id,
-          user_id: this.data.user.data.uid,
-          address_id: this.data.address_id,
-          type: this.data.type,
+          boatId: this.data.ticketInfo.id,
+          userId: this.data.user.id,
+          addressId: this.data.address_id,
+          packageType: this.data.type,
           price: this.data.price,
-          deliver_number: this.data.deliver_number,
-          express_name: this.data.express_name,
-          consignee_name: this.data.consignee_name,
-          consignee_tel: this.data.consignee_tel
+          code: this.data.deliver_number,
+          content: this.data.express_name,
+          leaveName: this.data.consignee_name,
+          leavePhone: this.data.consignee_tel,
+          expressType: this.data.ticketInfo.companyId
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {
-          console.log(res.data);
-          if (res.data) {
+          console.log(res);
+          if (res) {
             wx.navigateTo({
-              url: '/pages/pay/index?price=' + that.data.price + '&trade_sn=' + res.data
+              url: '/pages/pay/index?price=' + that.data.price + '&boatId=' + that.data.ticketInfo.id + "&type=" +
+              that.data.type
             });
           } else {
             wx.showToast({

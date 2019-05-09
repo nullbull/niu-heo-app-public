@@ -72,6 +72,7 @@ export default Page({
               driverNickname: this.data.driverName,
                 driver_line: this.data.driver_line,
                 companyId: this.data.site_id,
+                companyName: this.data.companyName,
                 destinationName: this.data.end_site,
                 smallPrice: this.data.small_price,
                 smallCount: this.data.small_count,
@@ -81,6 +82,9 @@ export default Page({
                 largeCount: this.data.big_count,
                 beginTime: this.data.start_time,
                 endTime: this.data.end_time
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
                 console.log(res.data);

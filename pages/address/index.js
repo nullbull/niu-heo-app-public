@@ -18,8 +18,8 @@ export default Page({
     this.setData({
       user: user
     });
-    let user_id = user.data.id;
-    console.log(user.data.id);
+    let user_id = user.id;
+    console.log(user.id);
     this.getAddress(user_id);
   },
   getAddress(user_id) {
@@ -62,7 +62,7 @@ export default Page({
     let address_id = event.currentTarget.id;
     let idx = event.currentTarget.dataset.idx;
     let user = wx.getStorageSync('user');
-    let user_id = user.data.uid;
+    let user_id = user.id;
     console.log(idx);
     var page = this;
     wx.request({

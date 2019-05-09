@@ -5,11 +5,12 @@ export default Page({
       value: 0,
       title: '请选择学校'
     },
-    address: '',
-    consignee: '',
-    tel: '',
-    addressId: '',
+    detail: '',
+    leaveName: '',
+    leavePhone: '',
+    addressId: 0,
     locationId: '',
+    locationName: "",
     // 选择区域  start
     area: {
       value: 0,
@@ -39,20 +40,21 @@ export default Page({
   },
   watchConsignee: function(event) {
     this.setData({
-      consignee: event.detail.value
+      leaveName: event.detail.value
     });
   },
   watchTel: function(event) {
     this.setData({
-      tel: event.detail.value
+      leavePhone: event.detail.value
     });
   },
   watchAddress: function(event) {
     this.setData({
-      address: event.detail.value
+      detail: event.detail.value
     });
   },
   onLoad(option) {
+  
     let schoolList = wx.getStorageSync('schoolList');
     this.setData({
       startSites: schoolList
@@ -65,17 +67,19 @@ export default Page({
       });
     }
     if (option.id != 'no') {
-      //console.log(option);
-      // let idx = option.id;
-      // let addressList = wx.getStorageSync('addressList');
-      // let address = addressList[idx];
-      // let address_id = this.data.addressId;
-      // this.setData({
-      //   leaveName: address.leaveName,
-      //   leavePhone: address.leavePhone,
-      //   locationName: address.locationName,
-      //   addressId: address.id
-      // });
+      console.log(option);
+      let idx = option.id;
+      let addressList = wx.getStorageSync('addressList');
+      let address = addressList[idx];
+      let address_id = this.data.addressId;
+      this.setData({
+        leaveName: address.leaveName,
+        leavePhone: address.leavePhone,
+        locationName: address.locationName,
+        locationId: address.locationId,
+        addressId: address.id,
+        detail: address.detail
+      });
     }
   },
   noSchool() {
@@ -92,17 +96,19 @@ export default Page({
   addAddress() {
     console.log(this.data.address_id);
     // console.log(this.data.address);
-    let consignee = this.data.consignee;
-    let tel = this.data.tel;
+    let leaveName = this.data.leaveName;
+    let leavePhone = this.data.leavePhone;
     let school = this.data.school;
-    let address = this.data.address;
-    let address_id = this.data.addressId;
+    let detail = this.data.detail;
+    let addressId = this.data.addressId;
     let locationId = this.data.locationId;
     let user = wx.getStorageSync('user');
     console.log(user);
-
-    let user_id = user.data.id;
-    if (consignee == '' || tel == '' || school.title == '' || address == '' || school.title == '请选择学校' || school.value == '0') {
+    this.setData({
+      user_id: user.id
+    });
+    let user_id = user.id;
+    if (leavePhone == '' || leaveName == '' || school.title == '' || detail == '' || school.title == '请选择学校' || school.value == '0') {
       wx.showToast({
         title: '请填写相关信息',
         duration: 1000,
@@ -111,7 +117,7 @@ export default Page({
       });
       return;
     }
-    if (!/1[3-8]\d{9}/.test(tel)) {
+    if (!/1[3-8]\d{9}/.test(leavePhone)) {
       wx.showToast({
         title: '请输入正确的手机号',
         duration: 1000,
@@ -124,10 +130,13 @@ export default Page({
     wx.request({
       url: api.user.saveAddress,
       data: {
-        leavePhone: tel,
-        leaveName: address,
-        locationId: locationId,
-        userId: user_id,
+        leavePhone: this.data.leavePhone,
+        leaveName: this.data.leaveName,
+        locationId: this.data.locationId,
+        locationName: this.data.locationName,
+        detail: this.data.detail,
+        userId: this.data.user_id,
+        id: this.data.addressId,
         status: 2
       },
       method: 'POST',
@@ -135,8 +144,8 @@ export default Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-        // console.log(res.data)
-        if (res.data == 'ok') {
+        console.log(res.data)
+        if (res.data.data == 'ok') {
           wx.navigateBack({
             delta: 1
           });

@@ -25,7 +25,7 @@ var api = {
     passengerDetail: _api_root + "driver/passengerDetail"
   },
   bus: {
-    newBus: _api_root + "boat/add",
+    newBus: _api_root + "boat/create",
     searchBus: _api_root + "boat/query",
     searchBus1: _api_root + "bus/searchBus1",
     searchBus2: _api_root + "bus/searchBus2",
@@ -35,8 +35,8 @@ var api = {
     changeStatus: _api_root + "bus/changeStatus"
   },
   order: {
-    pay: _api_root + "order/pay",
-    payok: _api_root + "order/payok",
+    pay: _api_root + "ticket/create",
+    payok: _api_root + "boat/makeOrder",
     confirmReceived: _api_root + "order/confirmReceived"
   },
   other: {

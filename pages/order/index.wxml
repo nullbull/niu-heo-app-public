@@ -58,11 +58,6 @@
         </wxc-flex>
         <wxc-flex class="flex-list" _pid="{{_pid}}">
             <item class="r-flex">
-                <wxc-input type="text" right="{{true}}" title="* 快递公司" maxlength="16" icon="truck" placeholder="请查看物流信息输入" mode="wrapped" class="myinput" bindblur="saveExpressName" _pid="{{_pid}}"></wxc-input>
-            </item>
-        </wxc-flex>
-        <wxc-flex class="flex-list" _pid="{{_pid}}">
-            <item class="r-flex">
                 <wxc-input type="number" right="{{true}}" title="* 包裹取货码" maxlength="10" icon="truck" placeholder="请查看物流信息输入" mode="wrapped" class="myinput" bindblur="saveDeliverNumber" _pid="{{_pid}}"></wxc-input>
             </item>
         </wxc-flex>
@@ -72,6 +67,11 @@
             </item>
         </wxc-flex>
     </view>
+            <wxc-flex class="flex-list" _pid="{{_pid}}">
+            <item class="r-flex">
+                <wxc-input type="text" right="{{true}}" title="* 备注" maxlength="16" icon="truck" placeholder="请留言" mode="wrapped" class="myinput" bindblur="saveExpressName" _pid="{{_pid}}"></wxc-input>
+            </item>
+        </wxc-flex>
     <view class="bottom-bar">
         <wxc-flex _pid="{{_pid}}">
             <item class="flex-list">

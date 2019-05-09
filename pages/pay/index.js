@@ -16,7 +16,9 @@ export default Page({
       consignee: "白小唯",
       tel: "15723695007",
       address: "清风苑B 522"
-    }
+    },
+    boatId: "",
+    type: ""
   },
   onLoad: function (option) {
     //  this.setData({
@@ -25,7 +27,8 @@ export default Page({
     console.log(option);
     this.setData({
       price: option.price,
-      trade_sn: option.trade_sn
+      boatId: option.boatId,
+      type: option.type
     });
   },
   payTest(e) {
@@ -34,15 +37,17 @@ export default Page({
     this.setData({
       isShow: false
     });
+    console.log(this.data.boatId);
+    console.log(this.data.type);
+
     wx.request({
       url: api.order.payok,
       data: {
         "__code__": {
           readme: ""
         },
-
-        trade_sn: this.data.trade_sn,
-        formId: e.detail.formId
+        boatId: this.data.boatId,
+        type: this.data.type
       },
       method: "POST",
       header: {

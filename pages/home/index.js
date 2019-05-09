@@ -185,33 +185,33 @@ export default Page({
                 });
                 return false;
             }
-            wx.request({
-                url: api.user.saveFormId,
-                method: 'POST',
-                data: {
-                    '__code__': {
-                        readme: ''
-                    },
+            // wx.request({
+            //     url: api.user.saveFormId,
+            //     method: 'POST',
+            //     data: {
+            //         '__code__': {
+            //             readme: ''
+            //         },
 
-                    form_id: e.detail.formId,
-                    user_id: user.data.uid
-                },
-                success: function (res) {
-                    console.log(res.data);
-                    if (res.data == 1) {
-                        console.log('formId保存成功!');
-                    } else {
-                        console.log('formId保存失败');
-                    }
-                },
-                fail: function () {
-                    wx.showToast({
-                        title: '链接服务器失败',
-                        icon: 'none',
-                        duration: 2000
-                    });
-                }
-            });
+            //         form_id: e.detail.formId,
+            //         user_id: user.data.id
+            //     },
+            //     success: function (res) {
+            //         console.log(res.data);
+            //         if (res.data == 1) {
+            //             console.log('formId保存成功!');
+            //         } else {
+            //             console.log('formId保存失败');
+            //         }
+            //     },
+            //     fail: function () {
+            //         wx.showToast({
+            //             title: '链接服务器失败',
+            //             icon: 'none',
+            //             duration: 2000
+            //         });
+            //     }
+            // });
 
             wx.navigateTo({
                 url: busUrl
