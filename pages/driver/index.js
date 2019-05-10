@@ -163,7 +163,7 @@ export default Page({
         let card_number = this.data.card_number;
         let school = this.data.school;
         let address = this.data.address;
-        if (name == '' || card_number == '' || school == '' || address == '' || school == '请选择学校') {
+        if (name == '' || card_number == '' || address == '' || school == '请选择学校') {
             wx.showToast({
                 title: '请填写相关信息',
                 duration: 1000,
@@ -171,7 +171,7 @@ export default Page({
             });
             return;
         }
-        this.upload_file(api.user.uploadCardImg, card_img, 'photo', formData);
+        this.upload_file(api.user.uploadCardImg, card_img, 'file', formData);
     },
     chooseImageTap() {
         console.log('选择图片');
@@ -196,7 +196,7 @@ export default Page({
             sizeType: ['original', 'compressed'],
             sourceType: [type],
             success: function (res) {
-                //console.log(res);
+                console.log(res);
                 _this.setData({
                     card_img: res.tempFilePaths,
                     display: true
@@ -206,7 +206,7 @@ export default Page({
     },
 
     upload_file(url, filePaths, name, formData) {
-
+        console.log(formData);
         let _this = this;
         wx.uploadFile({
             url: url,
@@ -229,7 +229,7 @@ export default Page({
                     let school = _this.data.school;
                     let address = _this.data.address;
                     let user = wx.getStorageSync('user');
-                    let user_id = user.data.uid;
+                    let user_id = user.id;
                     wx.request({
                         url: api.driver.newDriver,
                         data: {
@@ -242,12 +242,16 @@ export default Page({
                             school: school.value,
                             address: address,
                             path: data.path,
-                            user_id: user_id
+                            user_id: user_id,
+                            file:formData
                         },
                         method: 'POST',
+                        // header: {
+                        //     'Accept': 'application/json',
+                        //     'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+                        // },
                         header: {
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+                          'content-type': "multipart/form-data"
                         },
                         success: function (res) {
                             // console.log(res.data)

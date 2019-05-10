@@ -64,24 +64,25 @@ export default Page({
     let user = wx.getStorageSync('user');
     let user_id = user.id;
     console.log(idx);
+    console.log(address_id);
     var page = this;
     wx.request({
-      url: api.user.delAddress,
+      url: api.user.delAddress + "/" + address_id,
       data: {
         '__code__': {
           readme: ''
         },
 
-        address_id: address_id,
+        addressId: address_id,
         user_id: user_id
       },
-      method: 'POST',
-      header: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
-      },
+      method: 'GET',
+      // header: {
+      //   'Accept': 'application/json',
+      //   'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+      // },
       success: function (res) {
-        if (res.data == 'ok') {
+        if (res.data == 1) {
           let addressList = page.data.addressList;
           for (let i = 0; i < addressList.length; i++) {
             if (i == idx) {
@@ -118,7 +119,7 @@ export default Page({
     let address_id = event.currentTarget.id;
     let idx = event.currentTarget.dataset.idx;
     let user = wx.getStorageSync('user');
-    let user_id = user.data.uid;
+    let user_id = user.id;
     var page = this;
     wx.request({
       url: api.user.setDefaultAddress,
@@ -127,8 +128,8 @@ export default Page({
           readme: ''
         },
 
-        address_id: address_id,
-        user_id: user_id
+        addressId: address_id,
+        userId: user_id
       },
       method: 'POST',
       header: {

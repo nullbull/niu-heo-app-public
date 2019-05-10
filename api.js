@@ -11,16 +11,16 @@ var api = {
     getTicket: _api_root + "ticket/getTicket",
     getMyAddresses: _api_root + "address/getByUser",
     setDefaultAddress: _api_root + "user/setDefaultAddress",
-    delAddress: _api_root + "user/delAddress",
+    delAddress: _api_root + "address/doDelete",
     editAddress: _api_root + "user/editAddress",
     saveAddress: _api_root + "address/saveAddress",
     getMyCoupons: _api_root + "user/getMyCoupons",
     isDriver: _api_root + "driver/get",
     ifSiJi: _api_root + "user/ifSiJi",
-    uploadCardImg: _api_root + "user/uploadCardImg"
+    uploadCardImg: _api_root + "other/uplode"
   },
   driver: {
-    newDriver: _api_root + "driver/newDriver",
+    newDriver: _api_root + "other/uplode",
     getPassenger: _api_root + "driver/getPassenger",
     passengerDetail: _api_root + "driver/passengerDetail"
   },
