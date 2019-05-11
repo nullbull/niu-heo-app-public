@@ -20,7 +20,8 @@ var api = {
     uploadCardImg: _api_root + "other/uplode"
   },
   driver: {
-    newDriver: _api_root + "other/uplode",
+    newDriver: _api_root + "driver/register",
+    register: _api_root + "driver/register",
     getPassenger: _api_root + "driver/getPassenger",
     passengerDetail: _api_root + "driver/passengerDetail"
   },

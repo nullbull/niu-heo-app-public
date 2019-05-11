@@ -14,6 +14,7 @@
         </view>
         <view class="hr"></view>
         <wxc-input type="text" title="详细地址" mode="none" placeholder="如清风苑B栋406" bindinput="watchAddress" value="{{address}}" _pid="{{_pid}}"></wxc-input>
+        <wxc-input type="text" title="学号" mode="none" placeholder="201501060814" bindinput="watchSchoolId" value="{{schoolId}}" _pid="{{_pid}}"></wxc-input>
         <view class="hr"></view>
         <wxc-input type="text" title="证件号码" mode="none" placeholder="请输入证件号码" bindinput="watchCardNum" value="{{card_number}}" _pid="{{_pid}}"></wxc-input>
         <view class="hr"></view>

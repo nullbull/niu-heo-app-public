@@ -16,7 +16,8 @@ export default Page({
         },
         address: '',
         path: '',
-        formData: {}
+        formData: {},
+        schoolId:""
     },
     onLoad(option) {
         let isLogin = wx.getStorageSync('isLogin');
@@ -35,7 +36,7 @@ export default Page({
         }
         var that = this;
         let user = wx.getStorageSync('user');
-        let user_id = user.data.uid;
+        let user_id = user.id;
         let isDriver = wx.getStorageSync('isDriver');
         if (isDriver) {
             wx.switchTab({
@@ -151,6 +152,11 @@ export default Page({
             address: event.detail.value
         });
     },
+  watchSchoolId: function (event) {
+    this.setData({
+      schoolId: event.detail.value
+    });
+  },
     applyDriver() {
         wx.showToast({
             title: '正在处理,请勿重复提交',
@@ -214,79 +220,92 @@ export default Page({
             name: name,
             formData: formData,
             success: function (res) {
-                console.log("成功回调" + res.data);
-                var data = JSON.parse(res.data);
-                if (data.err == 0) {
-                    console.log('成功');
-                    console.log(data.path);
-                    _this.setData({
-                        path: data.path
-                    });
-                    let card_img = _this.data.card_img;
-                    let formData = _this.data.formData;
-                    let name = _this.data.name;
-                    let card_number = _this.data.card_number;
-                    let school = _this.data.school;
-                    let address = _this.data.address;
-                    let user = wx.getStorageSync('user');
-                    let user_id = user.id;
-                    wx.request({
-                        url: api.driver.newDriver,
-                        data: {
-                            '__code__': {
-                                readme: ''
-                            },
 
-                            card_number: card_number,
-                            name: name,
-                            school: school.value,
-                            address: address,
-                            path: data.path,
-                            user_id: user_id,
-                            file:formData
-                        },
-                        method: 'POST',
-                        // header: {
-                        //     'Accept': 'application/json',
-                        //     'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
-                        // },
-                        header: {
-                          'content-type': "multipart/form-data"
-                        },
-                        success: function (res) {
-                            // console.log(res.data)
-                            if (res.data == 'ok') {
-                                wx.navigateBack({
-                                    delta: 1
-                                });
-                                wx.showToast({
-                                    title: '申请已提交，请耐心等待',
-                                    duration: 2000,
-                                    icon: 'none'
-                                });
-                            } else {
-                                wx.showToast({
-                                    title: '异常错误',
-                                    duration: 1000,
-                                    icon: 'none'
-                                });
-                            }
-                        },
-                        fail: function (res) {
-                            wx.showToast({
-                                title: '异常错误',
-                                duration: 1000,
-                                icon: 'none'
-                            });
-                        }
-                    });
-                } else {
-                    wx.showToast({
-                        title: '异常错误',
-                        duration: 1000,
-                        icon: 'none'
-                    });
-                }
+                // let card_img = _this.data.card_img;
+                // let formData = _this.data.formData;
+                // let name = _this.data.name;
+                // let card_number = _this.data.card_number;
+                // let school = _this.data.school;
+                // let address = _this.data.address;
+                // let user = wx.getStorageSync('user');
+                // let userId = user.id;
+                // let schoolId = this.data.schoolId;
+                // let picture = res;
+                // wx.request({
+                //   url: api.driver.register,
+                //   data: {
+                //     idNumber: card_number,
+                //     realName: name,
+                //     locationMessage: address,
+                //     userId: user_id,
+                //     picture: picture,
+                //     schoolId: schoolId
+                //   },
+                //   method: 'POST',
+                //   // header: {
+                //   //     'Accept': 'application/json',
+                //   //     'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+                //   // },
+                //   header: {
+                //     'content-type': 'application/x-www-form-urlencoded'
+                //   },
+                //   success: function (res) {
+                //     console.log(res)
+                //     if (res.data == 1) {
+                //       wx.navigateBack({
+                //         delta: 1
+                //       });
+                //       wx.showToast({
+                //         title: '申请已提交，请耐心等待',
+                //         duration: 2000,
+                //         icon: 'none'
+                //       });
+                //     } else {
+                //       wx.showToast({
+                //         title: '异常错误',
+                //         duration: 1000,
+                //         icon: 'none'
+                //       });
+                //     }
+                //   },
+                //   fail: function (res) {
+                //     wx.showToast({
+                //       title: '异常错误',
+                //       duration: 1000,
+                //       icon: 'none'
+                //     });
+                //   }
+                // });  
+                let name = _this.data.name;
+                let card_number = _this.data.card_number;
+                let school = _this.data.school;
+                let address = _this.data.address;
+                let user = wx.getStorageSync('user');
+                let userId = user.id;
+                let schoolId = _this.data.schoolId;
+                let picture = res;
+                wx.request({
+                  url: api.driver.register,
+                  data: {
+                   idNumber: card_number,
+                    realname: name,
+                    locationMessage: address,
+                    userId: userId,
+                    picture: res,
+                    schoolId: schoolId
+                  },
+                  method: "POST",
+                  header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                  },
+                })
+                // } else {
+                //     wx.showToast({
+                //         title: '异常错误',
+                //         duration: 1000,
+                //         icon: 'none'
+                //     });
+                // }
             },
             fail: function (res) {
                 wx.showToast({
