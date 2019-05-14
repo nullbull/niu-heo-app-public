@@ -20,7 +20,7 @@
     "backgroundTextStyle": "dark",
     "backgroundColor": "#efefef",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "校园快递Bus",
+    "navigationBarTitleText": "校园快舰",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -33,7 +33,7 @@
         "pagePath": "pages/home/index",
         "iconPath": "common/assets/tab/bus.png",
         "selectedIconPath": "common/assets/tab/bus_selected.png",
-        "text": "BUS"
+        "text": "Boat"
       },
       {
         "pagePath": "pages/mine/index",

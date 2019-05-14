@@ -22,8 +22,8 @@ var api = {
   driver: {
     newDriver: _api_root + "driver/register",
     register: _api_root + "driver/register",
-    getPassenger: _api_root + "driver/getPassenger",
-    passengerDetail: _api_root + "driver/passengerDetail"
+    getPassenger: _api_root + "boat/getByDriverId",
+    passengerDetail: _api_root + "ticket/boatDetail"
   },
   bus: {
     newBus: _api_root + "boat/create",

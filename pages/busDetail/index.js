@@ -8,33 +8,29 @@ export default Page({
     var that = this;
     let user = wx.getStorageSync("user");
     let bus_id = option.id;
-    // console.log(bus_id);
+    console.log(bus_id);
     this.setData({
       user: user
     });
     wx.request({
-      url: api.driver.passengerDetail,
-      method: "POST",
-      data: {
-        bus_id: bus_id
-      },
+      url: api.driver.passengerDetail + "/" + bus_id,
+      method: "GET",
       header: {
-        Accept: "application/json",
-        Authorization: "Bearer " + wx.getStorageSync("user").data.token
+        'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
         console.log(res.data);
         if (res.data.length) {
           let bus = res.data;
           for (var i = 0; i < bus.length; i++) {
-            if (bus[i].type == 1) {
+            if (bus[i].packageType == 1) {
               bus[i].type = "小件";
-            } else if (bus[i].type == 2) {
+            } else if (bus[i].packageType == 2) {
               bus[i].type = "中件";
-            } else if (bus[i].type == 3) {
+            } else if (bus[i].packageType == 3) {
               bus[i].type = "大件";
             }
-            if (bus[i].received == 1) {
+            if (bus[i].status == 2) {
               bus[i].received = "乘客已确认";
             } else {
               bus[i].received = "未确认收件";

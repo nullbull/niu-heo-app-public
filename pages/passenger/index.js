@@ -10,26 +10,26 @@ export default Page({
   },
   onLoad() {
     let user = wx.getStorageSync('user');
-    let user_id = user.data.uid;
+    let isDriver = wx.getStorageInfoSync("isDriver");
+    let user_id = user.id;
     var _this = this;
-    wx.request({
-      url: api.user.ifSiJi,
-      method: "POST",
-      data: {
-        '__code__': {
-          readme: ''
-        },
+    // wx.request({
+    //   url: api.user.ifSiJi,
+    //   method: "POST",
+    //   data: {
+    //     '__code__': {
+    //       readme: ''
+    //     },
 
-        user_id: user_id
-      },
-      header: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
-      },
-      success: function (res) {
+    //     user_id: user_id
+    //   },
+    //   header: {
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+    //   },
+      // success: function (res) {
         //console.log(res.data);
-        let data = res.data;
-        if (data.message == 'dont') {
+    if (isDriver == false) {
           wx.showToast({
             title: '你还不是老司机，请先去申请',
             icon: 'none',
@@ -37,39 +37,31 @@ export default Page({
           });
         } else {
           //console.log(data.data[0].state)
-          if (data.data[0].state == 0 || data.data[0].state == 1) {
-            wx.showToast({
-              title: '你已提交老司机申请，请耐心等待',
-              duration: 2000,
-              icon: 'none'
-            });
-          } else {
+          // if (data.data[0].state == 0 || data.data[0].state == 1) {
+          //   wx.showToast({
+          //     title: '你已提交老司机申请，请耐心等待',
+          //     duration: 2000,
+          //     icon: 'none'
+          //   });
+          // } else {
             let driver = wx.getStorageSync('driver');
-            let driver_id = data.data[0].id;
+            console.log(driver);
+            let driver_id = driver.userId;
             let that = _this;
             wx.request({
-              url: api.driver.getPassenger,
-              method: 'POST',
-              data: {
-                '__code__': {
-                  readme: ''
-                },
-
-                user_id: user_id,
-                driver_id: driver_id
-              },
+              url: api.driver.getPassenger + "/" + driver_id,
+              method: 'GET',
               header: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + wx.getStorageSync('user').data.token
+                'content-type': 'application/x-www-form-urlencoded'
               },
               success: function (res) {
                 if (res.data.length > 0) {
-                  //console.log(res.data)
+                  console.log(res.data)
                   let bus = res.data;
                   for (let i = 0; i < bus.length; i++) {
-                    bus[i].time = bus[i].start_time.substr(0, 10);
-                    bus[i].start_time = bus[i].start_time.substr(11, 5);
-                    bus[i].end_time = bus[i].end_time.substr(11, 5);
+                    bus[i].time = bus[i].beginAt.substr(0, 10);
+                    bus[i].start_time = bus[i].beginAt.substr(11, 5);
+                    bus[i].end_time = bus[i].endAt.substr(11, 5);
                     bus[i].buttonClass = 'button' + bus[i].status;
                     if (bus[i].status == 0) {
                       bus[i].message = '未发车';
@@ -109,18 +101,17 @@ export default Page({
                 });
               }
             });
-          }
+          
         }
-      },
-      fail: function () {
-        //console.log('获取数据失败,请稍后再试')
-        wx.showToast({
-          title: '通信异常,请稍后再试',
-          icon: 'none',
-          duration: 1500
-        });
-      }
-    });
+    //   fail: function () {
+    //     //console.log('获取数据失败,请稍后再试')
+    //     wx.showToast({
+    //       title: '通信异常,请稍后再试',
+    //       icon: 'none',
+    //       duration: 1500
+    //     });
+    //   }
+    // });
   },
   toDetail(e) {
     console.log(e);
