@@ -38,7 +38,7 @@ var api = {
   order: {
     pay: _api_root + "ticket/create",
     payok: _api_root + "boat/makeOrder",
-    confirmReceived: _api_root + "order/confirmReceived"
+    confirmReceived: _api_root + "ticket/end"
   },
   other: {
     getSite: _api_root + "other/getSite",

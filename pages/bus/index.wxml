@@ -20,7 +20,7 @@
                         {{item.start_time}}
                     </view>
                     <view class="start-site">
-                        {{item.start_site}}
+                        {{item.companyName}}
                     </view>
                 </view>
                 <view class="item1  mid-flex">
@@ -39,7 +39,7 @@
                         {{item.end_time}}
                     </view>
                     <view>
-                        {{item.end_site}}
+                        {{item.destinationName}}
                     </view>
                 </view>
                 <view class="item1 price-container">

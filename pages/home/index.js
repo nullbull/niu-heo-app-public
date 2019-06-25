@@ -84,7 +84,7 @@ export default Page({
         console.log('picker发送选择改变，携带值为', e.detail.value + "---" ,this.data.startSites[e.detail.value].title);
       
           this.setData({
-            index : e.detail.value,
+            index: this.data.startSites[e.detail.value].value,
             companyId: this.data.startSites[e.detail.value].value,
             start_site: this.data.startSites[e.detail.value].title
           });

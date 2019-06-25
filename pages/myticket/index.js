@@ -83,8 +83,9 @@ export default Page({
         let index = e.currentTarget.dataset.index;
         var received = 'ticketList[' + index + '].received';
         var that = this;
+        var ticketId = that.data.ticketList[index].id;
         wx.request({
-            url: api.order.confirmReceived,
+            url: api.order.confirmReceived + "/" + ticketId,
             data: {
                 '__code__': {
                     readme: ''
@@ -92,7 +93,7 @@ export default Page({
 
                 trade_sn: this.data.ticketList[index].trade_sn
             },
-            method: 'POST',
+            method: 'GET',
             header: {
                 'content-type': 'application/x-www-form-urlencoded'
             },

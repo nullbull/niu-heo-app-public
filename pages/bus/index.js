@@ -73,6 +73,8 @@ export default Page({
         this.setData({
             startSites: startSites
         });
+
+        console.log(this.data.companyId);
         wx.request({
             url: api.bus.searchBus,
             method: 'POST',
@@ -81,11 +83,14 @@ export default Page({
                     readme: ''
                 },
 
-                start_site: this.data.start_site,
-                end_site: this.data.end_site,
-                school_id: this.data.currentSchool.value,
-                limit: this.data.limit,
-                companyId : this.data.companyId
+              start_site: that.data.start_site,
+              destinationName: that.data.end_site,
+              school_id: that.data.currentSchool.value,
+              limit: that.data.limit,
+              companyId: that.data.companyId
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
                 console.log(res.data)

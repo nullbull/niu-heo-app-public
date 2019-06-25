@@ -30,7 +30,7 @@ export default Page({
             } else if (bus[i].packageType == 3) {
               bus[i].type = "大件";
             }
-            if (bus[i].status == 2) {
+            if (bus[i].status == 3) {
               bus[i].received = "乘客已确认";
             } else {
               bus[i].received = "未确认收件";

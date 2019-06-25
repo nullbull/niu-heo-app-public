@@ -44,7 +44,7 @@
                 <text class="status">司机电话:{{item.xxx}}</text>
                 <text class="status1">状态：{{item.statusText}}</text>
             </view>
-            <view class="mybutton1" wx:if="{{item.status==2}}">已确认</view>
+            <view class="mybutton1" wx:if="{{item.status==3}}">已确认</view>
             <view class="mybutton" bindtap="confirmReceived" data-index="{{index}}" wx:else="">确认收货</view>
         </wxc-flex>
     </view>
